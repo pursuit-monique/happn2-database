@@ -1,0 +1,15 @@
+{
+  "name": "happn2-backend",
+  "version": "2.0.0",
+  "description": "Happn version 2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Monique Correa, Bo Latt",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  }
+}
