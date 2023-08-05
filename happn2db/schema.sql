@@ -24,3 +24,66 @@ CREATE TABLE users (
     contact VARCHAR(30),
     interests VARCHAR(30)
 )
+
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30),
+    info VARCHAR(80),
+    about TEXT,
+    picture TEXT,
+    time DATE,
+    date DATE,
+    address TEXT,
+    lat FLOAT,
+    lng FLOAT,
+    organization_id INT
+)
+
+CREATE TABLE causes (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20),
+    about TEXT,
+    picture TEXT
+)
+
+
+CREATE TABLE types (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20),
+    about TEXT,
+    picture TEXT
+)
+
+
+CREATE TABLE organizations (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30),
+    history TEXT,
+    about TEXT,
+    picture TEXT,
+    website TEXT,
+    type_id INT,
+    cause_id INT,
+    contact VARCHAR(30)
+)
+
+CREATE TABLE roles (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30),
+    about TEXT,
+    supervisor_id INT,
+    organization_id INT,
+    is_moderator BOOLEAN
+)
+
+
+CREATE TABLE broadcasts (
+    id SERIAL PRIMARY KEY,
+    event_id INT,
+    user_id INT,
+    about TEXT,
+    broadcaster_url TEXT,
+    moderator_url TEXT,
+    viewer_url TEXT,
+    room_code TEXT
+)
