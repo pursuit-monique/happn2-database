@@ -36,7 +36,12 @@ CREATE TABLE events (
     address TEXT,
     lat FLOAT,
     lng FLOAT,
-    organization_id INT
+    organization_id INT,
+    cause_id INT,
+    type_id INT,
+    locale_info TEXT,
+    tags TEXT
+
 )
 
 CREATE TABLE causes (
