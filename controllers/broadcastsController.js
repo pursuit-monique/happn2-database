@@ -2,7 +2,7 @@ const express = require("express");
 const broadcasts = express.Router();
 const db = require("../happn2db/dbConfig.js");
 const { Client } = require("pg-promise");
-const { getAllBroadcasts } = require("../queries/broadcastsjs");
+const { getAllBroadcasts } = require("../queries/broadcasts.js");
 
 broadcasts.get("/", async (req, res) => {
   try {

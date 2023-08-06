@@ -23,7 +23,7 @@ CREATE TABLE users (
     linkedin TEXT,
     contact VARCHAR(30),
     interests VARCHAR(30)
-)
+);
 
 CREATE TABLE events (
     id SERIAL PRIMARY KEY,
@@ -42,14 +42,14 @@ CREATE TABLE events (
     locale_info TEXT,
     tags TEXT
 
-)
+);
 
 CREATE TABLE causes (
     id SERIAL PRIMARY KEY,
     name VARCHAR(20),
     about TEXT,
     picture TEXT
-)
+);
 
 
 CREATE TABLE types (
@@ -57,7 +57,7 @@ CREATE TABLE types (
     name VARCHAR(20),
     about TEXT,
     picture TEXT
-)
+);
 
 
 CREATE TABLE organizations (
@@ -70,7 +70,7 @@ CREATE TABLE organizations (
     type_id INT,
     cause_id INT,
     contact VARCHAR(30)
-)
+);
 
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
@@ -79,7 +79,7 @@ CREATE TABLE roles (
     supervisor_id INT,
     organization_id INT,
     is_moderator BOOLEAN
-)
+);
 
 
 CREATE TABLE broadcasts (
@@ -91,4 +91,4 @@ CREATE TABLE broadcasts (
     moderator_url TEXT,
     viewer_url TEXT,
     room_code TEXT
-)
+);
