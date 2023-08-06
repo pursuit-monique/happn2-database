@@ -1,6 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const broadcastControllers = require("./controllers/broadcastsControllers");
+const causeControllers = require("./controllers/causesControllers");
+const eventControllers = require("./controllers/eventsController");
+
+app.use("/broadcasts", broadcastControllers);
+app.use("/causes", causeControllers);
+app.use("/events", eventControllers);
 
 app.use(cors());
 
