@@ -4,7 +4,7 @@ const db = require("../happn2db/dbConfig.js");
 
 const getAllRoles = async () => {
   try {
-    const allRoles = await db.any("SELECT * FROM causes");
+    const allRoles = await db.any("SELECT * FROM roles");
     return allRoles;
   } catch (error) {
     return error;
