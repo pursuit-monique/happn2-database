@@ -4,7 +4,7 @@ const db = require("../happn2db/dbConfig.js");
 
 const getAllEvents = async () => {
   try {
-    const allEvents = await db.any("SELECT * FROM addresses");
+    const allEvents = await db.any("SELECT * FROM events");
     return allEvents;
   } catch (error) {
     return error;
