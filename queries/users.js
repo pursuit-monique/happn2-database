@@ -1,6 +1,6 @@
 const express = require("express");
 const events = express.Router();
-const db = require("../apartmentdb/dbConfig.js");
+const db = require("../happn2db/dbConfig.js");
 
 const getAllUsers = async () => {
   try {
