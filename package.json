@@ -4,6 +4,7 @@
   "description": "Happn version 2",
   "main": "server.js",
   "scripts": {
+    "db:init": "psql -U postgres -f happn2db/schema.sql",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Monique Correa, Bo Latt",
