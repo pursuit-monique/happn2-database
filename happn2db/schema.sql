@@ -18,6 +18,7 @@ CREATE TABLE users (
     username VARCHAR(16),
     picture TEXT,
     about TEXT,
+    user_type VARCHAR(10),
     organization_id INT,
     role_id INT,
     linkedin TEXT,
@@ -41,7 +42,6 @@ CREATE TABLE events (
     type_id INT,
     locale_info TEXT,
     tags TEXT
-
 );
 
 CREATE TABLE causes (
