@@ -5,6 +5,7 @@ const broadcastControllers = require("./controllers/broadcastsController");
 const causeControllers = require("./controllers/causesController");
 const eventControllers = require("./controllers/eventsController");
 
+app.use(express.json());
 app.use("/broadcasts", broadcastControllers);
 app.use("/causes", causeControllers);
 app.use("/events", eventControllers);

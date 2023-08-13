@@ -7,7 +7,7 @@
     "db:init": "psql -U postgres -f happn2db/schema.sql",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Monique Correa, Bo Latt",
+  "author": "Monique Correa",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

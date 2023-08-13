@@ -11,28 +11,31 @@ const getAllEvents = async () => {
   }
 };
 
-const addEvent = async (event) => {
+const addEvent = async (eventData) => {
   try {
-    const event = await db.one(
-      "INSERT INTO events (name, info, about, picture, time, date, address, lat, lng, organization_id, cause_id, type_id, locale_info, tags) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *",
+    // console.log("eventData", eventData);
+    const insertedEvent = await db.one(
+      "INSERT INTO events (name, info, about, picture, time, date, address, lat, lng, organization_id, cause_id, type_id, locale_info, tags) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
+      // "INSERT INTO events (name, info, about, picture, time, date, address, lat, lng, organization_id, cause_id, type_id, locale_info, tags) VALUES ('Charity Gala', 'Fundraising event for local charities', 'Join us for an evening of elegance and philanthropy.', 'charity_gala.jpg', '2023-09-15 18:00:00', '2023-09-15', '123 Main Street, Cityville', 37.123456, -122.654321, 1, 3, 2, 'English', 'charhuhuhuty, fundraising, gala') RETURNING *"
       [
-        event.name,
-        event.info,
-        event.about,
-        event.picture,
-        event.time,
-        event.date,
-        event.address,
-        event.lat,
-        event.lng,
-        event.organization_id,
-        event.cause_id,
-        event.type_id,
-        event.locale_info,
-        event.tags,
+        eventData.name,
+        eventData.info,
+        eventData.about,
+        eventData.picture,
+        eventData.time,
+        eventData.date,
+        eventData.address,
+        eventData.lat,
+        eventData.lng,
+        eventData.organization_id,
+        eventData.cause_id,
+        eventData.type_id,
+        eventData.locale_info,
+        eventData.tags,
       ]
     );
-    return event;
+
+    return insertedEvent;
   } catch (error) {
     return error;
   }
