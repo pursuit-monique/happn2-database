@@ -4,23 +4,7 @@ events.use(express.json());
 const db = require("../happn2db/dbConfig.js");
 const { Client } = require("pg-promise");
 const { getAllEvents, addEvent } = require("../queries/events.js");
-
-const eventData = {
-  name: "foobhbhbd",
-  info: "Fundraising event jijij local charities",
-  about: "Join us for an evening of elegance and philanthropy.",
-  picture: "charity_gala.jpg",
-  time: "2023-09-15 18:00:00",
-  date: "2023-09-15",
-  address: "123 Main Street, Cityville",
-  lat: 37.123456,
-  lng: -122.654321,
-  organization_id: 1,
-  cause_id: 3,
-  type_id: 2,
-  locale_info: "English",
-  tags: "charity, fundraising, gala",
-};
+const { filter } = require("../functions/filter.js");
 
 events.get("/", async (req, res) => {
   try {
@@ -52,26 +36,32 @@ events.post("/", async (req, res) => {
       tags,
     } = req.body;
 
-    const newEvent = await addEvent({
-      name,
-      info,
-      about,
-      picture,
-      start_date,
-      end_date,
-      address,
-      lat,
-      lng,
-      organization_id,
-      cause_id,
-      type_id,
-      locale_info,
-      tags,
-    });
+    const chatGPTJudgement = await filter(name, about);
 
-    // const newEvent = await addEvent(eventData);
+    if (chatGPTJudgement[0] === "true") {
+      res.json(chatGPTJudgement[1]);
+      console.log("true", chatGPTJudgement);
+    } else {
+      console.log("false", chatGPTJudgement);
+      const newEvent = await addEvent({
+        name,
+        info,
+        about,
+        picture,
+        start_date,
+        end_date,
+        address,
+        lat,
+        lng,
+        organization_id,
+        cause_id,
+        type_id,
+        locale_info,
+        tags,
+      });
 
-    res.json(newEvent);
+      res.json(newEvent);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
