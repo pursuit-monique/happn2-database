@@ -6,13 +6,13 @@ const causeControllers = require("./controllers/causesController");
 const eventControllers = require("./controllers/eventsController");
 const filterControllers = require("./controllers/filterController");
 
+app.use(cors());
 app.use(express.json());
+
 app.use("/broadcasts", broadcastControllers);
 app.use("/causes", causeControllers);
 app.use("/events", eventControllers);
 app.use("/filter", filterControllers);
-
-app.use(cors());
 
 app.get("/", (request, response) => {
   response.status(200).json({ data: "Happndb is running." });

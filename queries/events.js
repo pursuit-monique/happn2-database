@@ -4,7 +4,9 @@ const db = require("../happn2db/dbConfig.js");
 
 const getAllEvents = async () => {
   try {
-    const allEvents = await db.any("SELECT * FROM events");
+    const allEvents = await db.any(
+      "SELECT id, name, info, about, picture, start_date, end_date, address, lat, lng, ST_MakePoint(lng, lat)::geometry AS location, organization_id, cause_id, type_id, locale_info, tags, ST_Distance(ST_MakePoint(lng, lat)::geography,'SRID=4326;LINESTRING(-72.1260 42.45, -72.123 42.1546)'::geography) / 1609.344 AS distance_miles FROM events"
+    );
     return allEvents;
   } catch (error) {
     return error;

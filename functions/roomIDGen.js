@@ -1,6 +1,6 @@
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 
-async function filter(title, description, info) {
+async function filter(title, description) {
   try {
     const response = await fetch(OPENAI_API_URL, {
       method: "POST",
@@ -18,7 +18,7 @@ async function filter(title, description, info) {
           },
           {
             role: "user",
-            content: `Title: ${title}, Description: ${description}, Info: ${info}`,
+            content: `Title: ${title}, Description: ${description}`,
           },
         ],
         temperature: 0,

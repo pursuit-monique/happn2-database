@@ -86,9 +86,10 @@ CREATE TABLE broadcasts (
     id SERIAL PRIMARY KEY,
     event_id INT,
     user_id INT,
+    title VARCHAR(30),
     about TEXT,
     broadcaster_url TEXT,
     moderator_url TEXT,
     viewer_url TEXT,
-    room_code TEXT
+    room_is TEXT
 );
