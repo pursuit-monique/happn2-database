@@ -36,10 +36,10 @@ events.post("/", async (req, res) => {
       tags,
     } = req.body;
 
-    const chatGPTJudgement = await filter(name, about);
+    const chatGPTJudgement = await filter(name, about, info);
 
     if (chatGPTJudgement[0] === "true") {
-      res.json(chatGPTJudgement[1]);
+      res.json({ judgement: true, response: chatGPTJudgement[1] });
       console.log("true", chatGPTJudgement);
     } else {
       console.log("false", chatGPTJudgement);
@@ -60,7 +60,7 @@ events.post("/", async (req, res) => {
         tags,
       });
 
-      res.json(newEvent);
+      res.json({ judgement: false, response: newEvent.id });
     }
   } catch (error) {
     console.error(error);
