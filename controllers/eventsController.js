@@ -8,7 +8,11 @@ const { filter } = require("../functions/filter.js");
 
 events.get("/", async (req, res) => {
   try {
-    const eventsList = await getAllEvents();
+    const { longitude, latitude } = req.query;
+    const eventsList = await getAllEvents({
+      longitude: longitude,
+      latitude: latitude,
+    });
     res.json(eventsList);
   } catch (error) {
     console.error(error);

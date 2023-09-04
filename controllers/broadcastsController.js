@@ -56,8 +56,23 @@ broadcasts.get("/make-request", async (req, res) => {
     );
 
     const data = await response.json();
-    console.log(token, requestOptions);
-    res.json(data);
+    // console.log(
+    //   "token",
+    //   token,
+    //   "requestOptions: ",
+    //   requestOptions,
+    //   "Data: ",
+    //   data
+    // );
+    console.log(data);
+
+    const roomCodes = await fetch(
+      `https://api.100ms.live/v2/room-codes/room/${data.id}`,
+      { method: requestOptions.method, headers: requestOptions.headers }
+    );
+    const roomCodeList = await roomCodes.json();
+    console.log("result:", roomCodeList);
+    res.json(roomCodeList);
   } catch (error) {
     res.status(500).json({ message: "Request error" });
   }
