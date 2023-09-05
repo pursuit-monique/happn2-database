@@ -89,6 +89,6 @@ CREATE TABLE broadcasts (
     room_id TEXT,
     title VARCHAR(30),
     about TEXT,
-    room_codes TEXT,
+    room_codes JSON,
     created_at TEXT
 );
