@@ -1,11 +1,16 @@
 const express = require("express");
 const broadcasts = express.Router();
-const db = require("../happn2db/dbConfig.js");
+broadcasts.use(express.json());
+// const db = require("../happn2db/dbConfig.js");
 const jwt = require("jsonwebtoken");
 const uuid4 = require("uuid4");
 const fetch = require("node-fetch");
-const { Client } = require("pg-promise");
-const { getAllBroadcasts } = require("../queries/broadcasts.js");
+// const { Client } = require("pg-promise");
+
+const {
+  getAllBroadcasts,
+  createNewBroadcast,
+} = require("../queries/broadcasts.js");
 
 broadcasts.get("/", async (req, res) => {
   try {
@@ -19,10 +24,12 @@ broadcasts.get("/", async (req, res) => {
 
 const app_access_key = process.env.HMS_ACCESS_KEY;
 
-broadcasts.get("/make-request", async (req, res) => {
-  const { name, description } = req.query;
-
+broadcasts.post("/make-request", async (req, res) => {
+  console.log("req.body", req.body);
+  // const { name, description } = req.query;
+  const { event_id, user_id, title, about } = req.body;
   try {
+    console.log("req.body", req.body);
     const payload = {
       access_key: app_access_key,
       type: "management",
@@ -44,8 +51,8 @@ broadcasts.get("/make-request", async (req, res) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
-        description: description,
+        name: title,
+        description: about,
         template_id: "647c9ecbb4208c13c3d74f41",
       }),
     };
@@ -64,15 +71,33 @@ broadcasts.get("/make-request", async (req, res) => {
     //   "Data: ",
     //   data
     // );
-    console.log(data);
+    // console.log(data);
 
     const roomCodes = await fetch(
       `https://api.100ms.live/v2/room-codes/room/${data.id}`,
       { method: requestOptions.method, headers: requestOptions.headers }
     );
     const roomCodeList = await roomCodes.json();
-    console.log("result:", roomCodeList);
-    res.json(roomCodeList);
+    // console.log("result:", roomCodeList);
+
+    console.log(event_id);
+    const roomCodeMap = {};
+    roomCodeList.data.forEach((roomCode, index) => {
+      roomCodeMap[roomCode.role] = roomCode.code;
+    });
+
+    const newBroadcast = await createNewBroadcast(
+      event_id,
+      user_id,
+      roomCodeList.data[0].id,
+      title,
+      about,
+      roomCodeMap,
+      roomCodeList.data[0].created_at
+    );
+    console.log(newBroadcast);
+    // Return a response or perform other actions as needed
+    res.json(newBroadcast);
   } catch (error) {
     res.status(500).json({ message: "Request error" });
   }
