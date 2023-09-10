@@ -3,10 +3,11 @@ const events = express.Router();
 const db = require("../happn2db/dbConfig.js");
 
 const getAllEvents = async (coords) => {
+  console.log(coords.radius);
   try {
     const allEvents = await db.any(
-      "SELECT id, name, info, about, picture, start_date, end_date, address, lat, lng, ST_MakePoint(lng, lat)::geometry AS location, organization_id, cause_id, type_id, locale_info, tags, ST_Distance(ST_MakePoint(lng, lat)::geography, ST_MakePoint($1, $2)::geography) / 1609.344 AS distance_miles FROM events;",
-      [coords.longitude, coords.latitude]
+      "SELECT * FROM (SELECT id, name, info, about, picture, start_date, end_date, address, lat, lng, ST_MakePoint(lng, lat)::geometry AS location, organization_id, cause_id, type_id, locale_info, tags, ST_Distance(ST_MakePoint(lng, lat)::geography, ST_MakePoint($1, $2)::geography) / 1609.344 AS distance_miles FROM events) AS eventlist WHERE distance_miles < $3;",
+      [coords.longitude, coords.latitude, coords.radius]
     );
     return allEvents;
   } catch (error) {
