@@ -6,7 +6,7 @@
   "scripts": {
     "db:init": "psql -U postgres -f happn2db/schema.sql",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
 
   },
   "author": "Monique Correa",
