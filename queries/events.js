@@ -15,6 +15,19 @@ const getAllEvents = async (coords) => {
   }
 };
 
+const getOneEvent = async (coords) => {
+  console.log(coords);
+  try {
+    const oneEvent = await db.one(
+      "SELECT * FROM (SELECT id, name, info, about, picture, start_date, end_date, address, lat, lng, ST_MakePoint(lng, lat)::geometry AS location, organization_id, cause_id, type_id, locale_info, tags, ST_Distance(ST_MakePoint(lng, lat)::geography, ST_MakePoint($1, $2)::geography) / 1609.344 AS distance_miles FROM events WHERE id = $3) AS eventlist;",
+      [coords.longitude, coords.latitude, coords.id]
+    );
+    return oneEvent;
+  } catch (error) {
+    return error;
+  }
+};
+
 const addEvent = async (eventData) => {
   try {
     const insertedEvent = await db.one(
@@ -43,4 +56,4 @@ const addEvent = async (eventData) => {
   }
 };
 
-module.exports = { addEvent, getAllEvents };
+module.exports = { addEvent, getAllEvents, getOneEvent };
