@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Happn version 2",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "db:init": "psql -U postgres -f happn2db/schema.sql",
     "test": "echo \"Error: no test specified\" && exit 1",

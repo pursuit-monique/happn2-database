@@ -1,5 +1,5 @@
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 async function filter(title, description, info) {
   try {
