@@ -4,8 +4,7 @@ broadcasts.use(express.json());
 // const db = require("../happn2db/dbConfig.js");
 const jwt = require("jsonwebtoken");
 const uuid4 = require("uuid4");
-import fetch from "node-fetch";
-
+const fetch = require("node-fetch");
 // const { Client } = require("pg-promise");
 
 const {
