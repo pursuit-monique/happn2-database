@@ -14,7 +14,10 @@ const {
 
 broadcasts.get("/", async (req, res) => {
   try {
-    const broadcastList = await getAllBroadcasts();
+    const { id } = req.query;
+    console.log("query id", id);
+    const broadcastList = await getAllBroadcasts({ id });
+    console.log(broadcastList);
     res.json(broadcastList);
   } catch (error) {
     console.error(error);
@@ -26,8 +29,12 @@ const app_access_key = process.env.HMS_ACCESS_KEY;
 
 broadcasts.post("/make-request", async (req, res) => {
   console.log("req.body", req.body);
-  // const { name, description } = req.query;
+
   const { event_id, user_id, title, about } = req.body;
+  console.log(event_id);
+  console.log(user_id);
+  console.log(title);
+  console.log(about);
   try {
     console.log("req.body", req.body);
     const payload = {
@@ -63,15 +70,7 @@ broadcasts.post("/make-request", async (req, res) => {
     );
 
     const data = await response.json();
-    // console.log(
-    //   "token",
-    //   token,
-    //   "requestOptions: ",
-    //   requestOptions,
-    //   "Data: ",
-    //   data
-    // );
-    // console.log(data);
+    console.log("data", data);
 
     const roomCodes = await fetch(
       `https://api.100ms.live/v2/room-codes/room/${data.id}`,
@@ -80,15 +79,15 @@ broadcasts.post("/make-request", async (req, res) => {
     const roomCodeList = await roomCodes.json();
     // console.log("result:", roomCodeList);
 
-    console.log(event_id);
+    console.log(roomCodeList);
     const roomCodeMap = {};
     roomCodeList.data.forEach((roomCode, index) => {
       roomCodeMap[roomCode.role] = roomCode.code;
     });
 
     const newBroadcast = await createNewBroadcast(
-      event_id,
-      user_id,
+      Number(event_id),
+      Number(user_id),
       roomCodeList.data[0].id,
       title,
       about,
