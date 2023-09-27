@@ -58,7 +58,7 @@ broadcasts.post("/make-request", async (req, res) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: title,
+        name: title.trim(),
         description: about,
         template_id: "647c9ecbb4208c13c3d74f41",
       }),
