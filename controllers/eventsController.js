@@ -3,7 +3,12 @@ const events = express.Router();
 events.use(express.json());
 const db = require("../happn2db/dbConfig.js");
 const { Client } = require("pg-promise");
-const { getAllEvents, getOneEvent, addEvent } = require("../queries/events.js");
+const {
+  getAllEvents,
+  getOneEvent,
+  addEvent,
+  testAllEvents,
+} = require("../queries/events.js");
 const { filter } = require("../functions/filter.js");
 
 events.get("/", async (req, res) => {
@@ -22,18 +27,9 @@ events.get("/", async (req, res) => {
   }
 });
 
-events.get("/one", async (req, res) => {
+events.get("/test", async (req, res) => {
   try {
-    const { longitude, latitude, radius, id } = req.query;
-    const eventsList = await getOneEvent({
-      longitude: longitude,
-      latitude: latitude,
-      // radius: radius / 1609.34,
-      id: id,
-    });
-    console.log("longitude", longitude);
-    // console.log("radius", radius);
-    console.log("id", id);
+    const eventsList = await testAllEvents();
     res.json(eventsList);
   } catch (error) {
     console.error(error);
