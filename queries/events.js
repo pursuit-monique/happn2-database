@@ -58,9 +58,10 @@ const addEvent = async (eventData) => {
         eventData.tags,
       ]
     );
-
+    console.log("inserted", insertedEvent);
     return insertedEvent;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };

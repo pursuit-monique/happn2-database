@@ -27,9 +27,28 @@ events.get("/", async (req, res) => {
   }
 });
 
+events.get("/one", async (req, res) => {
+  try {
+    const { longitude, latitude, radius, id } = req.query;
+    const eventsList = await getOneEvent({
+      longitude: longitude,
+      latitude: latitude,
+      // radius: radius / 1609.34,
+      id: id,
+    });
+    console.log("longitude", longitude);
+    // console.log("radius", radius);
+    console.log("id", id);
+    res.json(eventsList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
 events.get("/test", async (req, res) => {
   try {
     const eventsList = await testAllEvents();
+    console.log(eventsList);
     res.json(eventsList);
   } catch (error) {
     console.error(error);
@@ -80,6 +99,7 @@ events.post("/", async (req, res) => {
         locale_info,
         tags,
       });
+      console.log(newEvent);
 
       res.json({ judgement: false, response: newEvent.id });
     }
