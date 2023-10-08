@@ -15,14 +15,9 @@ const getAllEvents = async (coords) => {
     return error;
   }
 };
-const testAllEvents = async (coords) => {
-  console.log(coords.radius);
+const testAllEvents = async () => {
   try {
-    const allEvents = await db.any("SELECT * FROM events;", [
-      coords.longitude,
-      coords.latitude,
-      coords.radius,
-    ]);
+    const allEvents = await db.any("SELECT * FROM events;");
     return allEvents;
   } catch (error) {
     return error;
